@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { DoubleSide, MathUtils, type Group } from "three";
 
@@ -100,16 +100,7 @@ function CoreGroup() {
   );
 }
 
-export default function HeroScene() {
-  const [ready, setReady] = useState(false);
-  const readyRef = useRef(false);
-
-  const handleReady = () => {
-    if (readyRef.current) return;
-    readyRef.current = true;
-    setReady(true);
-  };
-
+export default function HeroScene({ onReady }: { onReady?: () => void }) {
   return (
     <Canvas
       dpr={[1, 1.5]}
@@ -119,13 +110,9 @@ export default function HeroScene() {
       onCreated={({ gl }) => {
         gl.setClearAlpha(0);
       }}
-      style={{
-        background: "transparent",
-        opacity: ready ? 1 : 0,
-        transition: "opacity 400ms ease-out",
-      }}
+      style={{ background: "transparent" }}
     >
-      <SceneReady onReady={handleReady} />
+      <SceneReady onReady={onReady ?? (() => {})} />
       <ambientLight intensity={0.7} />
       <directionalLight position={[3, 3, 4]} intensity={0.8} />
       <CoreGroup />

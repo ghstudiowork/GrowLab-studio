@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useState, useSyncExternalStore } from "react";
 import dynamic from "next/dynamic";
 
 const HeroScene = dynamic(() => import("./HeroScene"), {
@@ -26,12 +26,18 @@ function getServerSnapshot() {
 
 export default function HeroSceneLoader() {
   const isDesktop = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-
-  if (!isDesktop) return null;
+  const [ready, setReady] = useState(false);
 
   return (
-    <div className="w-full h-full" aria-hidden="true">
-      <HeroScene />
+    <div
+      className="absolute inset-0 transition-opacity duration-500 ease-out"
+      style={{ opacity: ready ? 1 : 0 }}
+      aria-hidden="true"
+    >
+      <div className="absolute inset-0 bg-zinc-50 dark:bg-black" />
+      <div className="relative h-full w-full">
+        {isDesktop && <HeroScene onReady={() => setReady(true)} />}
+      </div>
     </div>
   );
 }

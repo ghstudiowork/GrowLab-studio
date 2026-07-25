@@ -28,13 +28,7 @@ export default function Hero() {
           </div>
         </div>
         <div className="hidden md:block md:h-[460px] lg:h-[560px] relative">
-          <div
-            className="absolute inset-0 bg-zinc-50 dark:bg-black"
-            aria-hidden="true"
-          />
-          <div className="relative h-full w-full">
-            <HeroSceneLoader />
-          </div>
+          <HeroSceneLoader />
         </div>
       </section>
     </main>
