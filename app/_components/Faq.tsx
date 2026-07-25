@@ -64,6 +64,14 @@ export default function Faq() {
               네. 프로젝트에 적합한 도메인과 호스팅을 안내하고 연결 및 기본 설정을 지원합니다.
             </p>
           </div>
+          <div className="py-8 flex flex-col gap-2">
+            <p className="text-lg font-semibold text-black dark:text-zinc-50">
+              Q. 아직 홈페이지에 넣을 자료가 준비되지 않았는데 의뢰할 수 있나요?
+            </p>
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">
+              네. 준비된 자료와 필요한 내용을 먼저 확인한 뒤, 페이지 구성과 문구 방향을 함께 정리할 수 있습니다. 다만 로고, 사진, 상세한 원고 제작이 필요한 경우에는 작업 범위에 따라 별도 협의가 필요할 수 있습니다.
+            </p>
+          </div>
         </motion.div>
       </div>
     </section>

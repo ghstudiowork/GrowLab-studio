@@ -13,18 +13,16 @@ export default function Contact() {
         variants={fadeInUp}
         className="text-3xl sm:text-4xl font-bold text-black dark:text-zinc-50"
       >
-        프로젝트를 시작해보세요
+        어떤 홈페이지가 필요한지 아직 명확하지 않아도 괜찮습니다.
       </motion.h2>
       <motion.p
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeInUp}
-        className="text-zinc-600 dark:text-zinc-400 max-w-xl leading-relaxed"
+        className="text-zinc-600 dark:text-zinc-400 max-w-xl md:max-w-none md:whitespace-nowrap leading-relaxed text-pretty"
       >
-        카카오톡으로 빠르게 상담받으실 수 있으며,
-        <br />
-        이메일로도 문의를 남겨주실 수 있습니다.
+        사업의 현재 상황과 목표를 알려주시면 필요한 구성과 제작 방향부터 함께 정리해드립니다.
       </motion.p>
       <motion.div
         initial="hidden"
@@ -47,7 +45,7 @@ export default function Contact() {
         variants={fadeInUp}
         className="text-sm text-zinc-500 dark:text-zinc-500"
       >
-        평일 기준 24시간 이내 답변드립니다.
+        간단한 문의도 부담 없이 남겨주세요. 평일 기준 24시간 이내에 답변드립니다.
       </motion.p>
     </section>
   );

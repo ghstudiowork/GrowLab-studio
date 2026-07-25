@@ -22,7 +22,7 @@ export default function Services() {
         variants={fadeInUp}
         className="text-zinc-600 dark:text-zinc-400 text-center max-w-2xl"
       >
-        브랜드의 목적과 고객의 행동에 맞춰 필요한 웹사이트를 설계하고 제작합니다.
+        사업의 현재 단계와 목표에 맞춰, 신뢰를 높이고 고객의 행동을 이끌어내는 웹사이트를 제작합니다.
       </motion.p>
       <motion.div
         initial="hidden"
@@ -39,7 +39,7 @@ export default function Services() {
             기업·브랜드 홈페이지
           </p>
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
-            신뢰도와 브랜드 이미지를 높이는 공식 홈페이지
+            회사와 브랜드의 전문성을 명확하게 전달하고, 잠재 고객이 안심하고 문의할 수 있는 공식 홈페이지를 제작합니다.
           </p>
         </motion.div>
         <motion.div
@@ -50,7 +50,7 @@ export default function Services() {
             랜딩페이지
           </p>
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
-            광고와 캠페인의 전환을 높이는 단일 페이지
+            광고와 캠페인의 핵심 메시지에 집중해 방문자가 상담, 신청, 구매 등의 행동으로 이어지도록 구성합니다.
           </p>
         </motion.div>
         <motion.div
@@ -61,7 +61,7 @@ export default function Services() {
             홈페이지 리뉴얼
           </p>
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
-            오래된 디자인과 구조를 현재 기준에 맞게 개선
+            오래된 디자인과 복잡한 정보 구조를 정리해 현재의 브랜드 이미지와 사업 방향에 맞게 개선합니다.
           </p>
         </motion.div>
         <motion.div
@@ -72,7 +72,7 @@ export default function Services() {
             유지보수
           </p>
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
-            오픈 이후에도 안정적으로 운영할 수 있도록 관리
+            홈페이지 오픈 이후에도 콘텐츠 수정과 기능 점검을 지원해 안정적으로 운영할 수 있도록 돕습니다.
           </p>
         </motion.div>
       </motion.div>
