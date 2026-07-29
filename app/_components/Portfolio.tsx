@@ -18,6 +18,20 @@ function MorrowThumbnail() {
   );
 }
 
+function ArchiMonoThumbnail() {
+  return (
+    <div className="group relative aspect-[16/11] w-full rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm transition-shadow duration-300 hover:shadow-lg">
+      <Image
+        src="/images/portfolio/archi-mono-thumbnail.png"
+        alt="ARCHI / MONO 웹사이트 스크린샷"
+        fill
+        sizes="(min-width: 640px) 33vw, 100vw"
+        className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+      />
+    </div>
+  );
+}
+
 export default function Portfolio() {
   return (
     <section id="portfolio" className="w-full max-w-7xl mx-auto px-6 sm:px-12 py-24 flex flex-col items-center gap-12">
@@ -69,26 +83,28 @@ export default function Portfolio() {
             프로젝트 보기 ↗
           </a>
         </motion.div>
-        <motion.div variants={fadeInUp} className="flex flex-col gap-4">
-          <div className="aspect-[4/3] w-full rounded-xl border border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 flex items-center justify-center">
-            <p className="text-sm font-medium text-zinc-400 dark:text-zinc-600">
-              Coming Soon
+        <motion.div variants={fadeInUp} className="flex flex-col gap-5">
+          <ArchiMonoThumbnail />
+          <div className="flex flex-col gap-1.5">
+            <p className="text-xs uppercase tracking-wide font-semibold text-emerald-600 dark:text-emerald-400">
+              건축 · 인테리어
+            </p>
+            <p className="text-lg font-semibold text-black dark:text-zinc-50">
+              ARCHI / MONO
+            </p>
+            <p className="text-sm text-zinc-600 dark:text-zinc-400">
+              빛과 재료, 공간의 감도를 중심으로 설계한 건축 · 인테리어 스튜디오 웹사이트
             </p>
           </div>
-          <div className="flex flex-col gap-1">
-            <p className="text-[11px] font-medium text-zinc-400 dark:text-zinc-600">
-              다음 프로젝트 준비 중
-            </p>
-            <p className="text-xs uppercase tracking-wide font-semibold text-zinc-400 dark:text-zinc-600">
-              랜딩페이지
-            </p>
-            <p className="text-lg font-semibold text-zinc-400 dark:text-zinc-600">
-              카페 랜딩페이지
-            </p>
-            <p className="text-sm text-zinc-400 dark:text-zinc-600">
-              메뉴와 공간의 분위기를 효과적으로 보여주는 랜딩페이지
-            </p>
-          </div>
+          <a
+            href="https://archi-mono.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="ARCHI / MONO 프로젝트 보기 (새 탭에서 열림)"
+            className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-medium rounded-lg bg-black text-white dark:bg-white dark:text-black w-full sm:w-fit"
+          >
+            프로젝트 보기 ↗
+          </a>
         </motion.div>
         <motion.div variants={fadeInUp} className="flex flex-col gap-4">
           <div className="aspect-[4/3] w-full rounded-xl border border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/50 flex items-center justify-center">
