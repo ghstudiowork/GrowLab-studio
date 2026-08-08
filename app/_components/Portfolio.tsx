@@ -1,50 +1,9 @@
 "use client";
 
-import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { fadeInUp, staggerContainer } from "./motion-variants";
-
-function MorrowThumbnail() {
-  return (
-    <div className="group relative aspect-[16/11] w-full rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm transition-shadow duration-300 hover:shadow-lg">
-      <Image
-        src="/images/portfolio/morrow-thumbnail.png"
-        alt="MORROW ROASTERS 웹사이트 스크린샷"
-        fill
-        sizes="(min-width: 640px) 33vw, 100vw"
-        className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-      />
-    </div>
-  );
-}
-
-function ArchiMonoThumbnail() {
-  return (
-    <div className="group relative aspect-[16/11] w-full rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm transition-shadow duration-300 hover:shadow-lg">
-      <Image
-        src="/images/portfolio/archi-mono-thumbnail.png"
-        alt="ARCHI / MONO 웹사이트 스크린샷"
-        fill
-        sizes="(min-width: 640px) 33vw, 100vw"
-        className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-      />
-    </div>
-  );
-}
-
-function LumeaThumbnail() {
-  return (
-    <div className="group relative aspect-[16/11] w-full rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden shadow-sm transition-shadow duration-300 hover:shadow-lg">
-      <Image
-        src="/images/portfolio/lumea-thumbnail.png"
-        alt="LUMÉA 웹사이트 스크린샷"
-        fill
-        sizes="(min-width: 640px) 33vw, 100vw"
-        className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-      />
-    </div>
-  );
-}
+import { fadeInUp } from "./motion-variants";
+import PortfolioCarousel from "./PortfolioCarousel";
 
 export default function Portfolio() {
   return (
@@ -71,78 +30,29 @@ export default function Portfolio() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        variants={staggerContainer}
-        className="grid sm:grid-cols-3 gap-8 w-full items-start"
+        variants={fadeInUp}
+        className="w-full"
       >
-        <motion.div variants={fadeInUp} className="flex flex-col gap-5">
-          <MorrowThumbnail />
-          <div className="flex flex-col gap-1.5">
-            <p className="text-xs uppercase tracking-wide font-semibold text-emerald-600 dark:text-emerald-400">
-              CAFE WEBSITE
-            </p>
-            <p className="text-lg font-semibold text-black dark:text-zinc-50">
-              MORROW ROASTERS
-            </p>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400">
-              프리미엄 스페셜티 카페 브랜드를 위한 반응형 웹사이트
-            </p>
-          </div>
-          <a
-            href="https://growlab-morrow-roasters.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="MORROW ROASTERS 프로젝트 보기 (새 탭에서 열림)"
-            className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-medium rounded-lg bg-black text-white dark:bg-white dark:text-black w-full sm:w-fit"
-          >
-            프로젝트 보기 ↗
-          </a>
-        </motion.div>
-        <motion.div variants={fadeInUp} className="flex flex-col gap-5">
-          <ArchiMonoThumbnail />
-          <div className="flex flex-col gap-1.5">
-            <p className="text-xs uppercase tracking-wide font-semibold text-emerald-600 dark:text-emerald-400">
-              건축 · 인테리어
-            </p>
-            <p className="text-lg font-semibold text-black dark:text-zinc-50">
-              ARCHI / MONO
-            </p>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400">
-              빛과 재료, 공간의 감도를 중심으로 설계한 건축 · 인테리어 스튜디오 웹사이트
-            </p>
-          </div>
-          <a
-            href="https://archi-mono.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="ARCHI / MONO 프로젝트 보기 (새 탭에서 열림)"
-            className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-medium rounded-lg bg-black text-white dark:bg-white dark:text-black w-full sm:w-fit"
-          >
-            프로젝트 보기 ↗
-          </a>
-        </motion.div>
-        <motion.div variants={fadeInUp} className="flex flex-col gap-5">
-          <LumeaThumbnail />
-          <div className="flex flex-col gap-1.5">
-            <p className="text-xs uppercase tracking-wide font-semibold text-emerald-600 dark:text-emerald-400">
-              SKIN & AESTHETIC STUDIO
-            </p>
-            <p className="text-lg font-semibold text-black dark:text-zinc-50">
-              LUMÉA
-            </p>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400">
-              프리미엄 스킨 케어 스튜디오의 브랜드 경험과 예약 흐름을 설계한 에디토리얼 웹사이트
-            </p>
-          </div>
-          <a
-            href="https://lumea-htz1.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LUMÉA 프로젝트 보기 (새 탭에서 열림)"
-            className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-medium rounded-lg bg-black text-white dark:bg-white dark:text-black w-full sm:w-fit"
-          >
-            프로젝트 보기 ↗
-          </a>
-        </motion.div>
+        <PortfolioCarousel />
+      </motion.div>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeInUp}
+      >
+        <Link
+          href="/portfolio"
+          className="group inline-flex items-center gap-1.5 text-sm font-medium text-black dark:text-zinc-50"
+        >
+          <span className="relative">
+            모든 프로젝트 보기
+            <span className="absolute left-0 -bottom-0.5 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 ease-out group-hover:scale-x-100" />
+          </span>
+          <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">
+            →
+          </span>
+        </Link>
       </motion.div>
     </section>
   );

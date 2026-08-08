@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Navbar() {
   return (
     <nav className="w-full py-6">
@@ -6,10 +8,10 @@ export default function Navbar() {
           GROWLAB STUDIO
         </p>
         <ul className="flex flex-wrap gap-6 text-sm text-zinc-600 dark:text-zinc-400">
-          <li><a href="#services">서비스</a></li>
-          <li><a href="#process">프로세스</a></li>
-          <li><a href="#portfolio">포트폴리오</a></li>
-          <li><a href="#contact">문의하기</a></li>
+          <li><Link href="/#services">서비스</Link></li>
+          <li><Link href="/#process">프로세스</Link></li>
+          <li><Link href="/portfolio">포트폴리오</Link></li>
+          <li><Link href="/#contact">문의하기</Link></li>
         </ul>
       </div>
     </nav>
