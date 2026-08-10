@@ -19,7 +19,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-6 sm:px-12 pb-12">
-        <p className="text-xs text-zinc-500 dark:text-zinc-400">
+        <p className="text-sm text-zinc-500 dark:text-zinc-400">
           © 2026 GrowLab Studio. All rights reserved.
         </p>
       </div>

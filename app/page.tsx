@@ -4,6 +4,7 @@ import WhyChooseUs from "./_components/WhyChooseUs";
 import Services from "./_components/Services";
 import Process from "./_components/Process";
 import Portfolio from "./_components/Portfolio";
+import Pricing from "./_components/Pricing";
 import Faq from "./_components/Faq";
 import Contact from "./_components/Contact";
 import Footer from "./_components/Footer";
@@ -17,6 +18,7 @@ export default function Home() {
       <Services />
       <Process />
       <Portfolio />
+      <Pricing />
       <Faq />
       <Contact />
       <Footer />

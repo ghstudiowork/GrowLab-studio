@@ -30,10 +30,10 @@ function CarouselCard({ project }: { project: PortfolioProject }) {
         <p className="text-xs uppercase tracking-wide font-semibold text-emerald-600 dark:text-emerald-400">
           {project.category}
         </p>
-        <p className="text-lg font-semibold text-black dark:text-zinc-50">
+        <p className="text-lg sm:text-xl font-semibold text-black dark:text-zinc-50">
           {project.title}
         </p>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+        <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400">
           {project.description}
         </p>
       </div>

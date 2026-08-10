@@ -13,7 +13,7 @@ export default function Portfolio() {
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeInUp}
-        className="text-3xl sm:text-4xl font-bold text-black dark:text-zinc-50 text-center"
+        className="text-[31px] sm:text-[41px] font-bold text-black dark:text-zinc-50 text-center"
       >
         포트폴리오
       </motion.h2>
@@ -22,7 +22,7 @@ export default function Portfolio() {
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeInUp}
-        className="text-zinc-600 dark:text-zinc-400 text-center max-w-2xl"
+        className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 text-center max-w-2xl"
       >
         브랜드의 목적과 고객 경험을 고려해 기획한 GrowLab Studio의 웹 프로젝트를 소개합니다.
       </motion.p>
