@@ -12,6 +12,16 @@ export type PortfolioProject = {
 // 새 프로젝트는 이 배열에 추가하면 메인 홈(캐러셀)과 /portfolio에 자동 반영됩니다.
 export const portfolioProjects: PortfolioProject[] = [
   {
+    slug: "hwadam",
+    title: "HWADAM",
+    category: "Restaurant Website",
+    description: "정갈한 한식 다이닝의 무드와 예약 경험을 담은 레스토랑 웹사이트",
+    year: "2026",
+    href: "https://hwadam-restaurant-red.vercel.app/",
+    thumbnail: "/images/portfolio/hwadam-thumbnail.png",
+    thumbnailAlt: "HWADAM 웹사이트 스크린샷",
+  },
+  {
     slug: "noirframe",
     title: "NOIRFRAME",
     category: "Fashion Commerce",
