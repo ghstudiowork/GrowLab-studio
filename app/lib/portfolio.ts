@@ -15,7 +15,7 @@ export const portfolioProjects: PortfolioProject[] = [
     slug: "hwadam",
     title: "HWADAM",
     category: "Restaurant Website",
-    description: "정갈한 한식 다이닝의 무드와 예약 경험을 담은 레스토랑 웹사이트",
+    description: "숯불의 강렬한 비주얼과 감각적인 고깃집 브랜드 웹사이트",
     year: "2026",
     href: "https://hwadam-restaurant-red.vercel.app/",
     thumbnail: "/images/portfolio/hwadam-thumbnail.png",
