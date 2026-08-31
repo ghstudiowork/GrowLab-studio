@@ -12,6 +12,17 @@ export type PortfolioProject = {
 // 새 프로젝트는 이 배열에 추가하면 메인 홈(캐러셀)과 /portfolio에 자동 반영됩니다.
 export const portfolioProjects: PortfolioProject[] = [
   {
+    slug: "slice-club",
+    title: "SLICE CLUB",
+    category: "Pizza Brand Website",
+    description:
+      "늦은 밤의 피자 문화를 감각적인 인터랙션과 대담한 타이포그래피로 풀어낸 브랜드 웹사이트입니다. 메뉴 탐색부터 브랜드 스토리, 제작 방식과 매장 정보까지 하나의 흐름으로 설계했습니다.",
+    year: "2026",
+    href: "https://slice-club-sedg.vercel.app/",
+    thumbnail: "/images/portfolio/slice-club-thumbnail.png",
+    thumbnailAlt: "SLICE CLUB 피자 브랜드 웹사이트",
+  },
+  {
     slug: "hwadam",
     title: "HWADAM",
     category: "Restaurant Website",
