@@ -8,11 +8,11 @@ export default function Navbar() {
           GROWLAB STUDIO
         </p>
         <ul className="flex flex-wrap gap-6 text-sm text-zinc-600 dark:text-zinc-400">
-          <li><Link href="/#services">서비스</Link></li>
-          <li><Link href="/#process">프로세스</Link></li>
+          <li><Link href="#services">서비스</Link></li>
+          <li><Link href="#process">프로세스</Link></li>
           <li><Link href="/portfolio">포트폴리오</Link></li>
-          <li><Link href="/#pricing">요금제</Link></li>
-          <li><Link href="/#contact">문의하기</Link></li>
+          <li><Link href="#pricing">요금제</Link></li>
+          <li><Link href="#contact">문의하기</Link></li>
         </ul>
       </div>
     </nav>

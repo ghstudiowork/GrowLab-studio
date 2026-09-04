@@ -5,7 +5,7 @@ import { fadeInUp } from "./motion-variants";
 
 export default function Process() {
   return (
-    <section id="process" className="w-full bg-white dark:bg-zinc-950">
+    <section id="process" className="w-full bg-white dark:bg-zinc-950 scroll-mt-28">
       <div className="max-w-7xl mx-auto px-6 sm:px-12 py-24 flex flex-col items-center gap-12">
         <motion.h2
           initial="hidden"

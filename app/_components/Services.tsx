@@ -5,7 +5,7 @@ import { fadeInUp, staggerContainer } from "./motion-variants";
 
 export default function Services() {
   return (
-    <section id="services" className="w-full max-w-7xl mx-auto px-6 sm:px-12 py-24 flex flex-col items-center gap-12">
+    <section id="services" className="w-full max-w-7xl mx-auto px-6 sm:px-12 py-24 flex flex-col items-center gap-12 scroll-mt-28">
       <motion.h2
         initial="hidden"
         whileInView="visible"

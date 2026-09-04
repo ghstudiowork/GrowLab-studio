@@ -70,7 +70,7 @@ const plans: PricingPlan[] = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="w-full bg-white dark:bg-zinc-950">
+    <section id="pricing" className="w-full bg-white dark:bg-zinc-950 scroll-mt-28">
       <div className="max-w-[84rem] mx-auto px-6 sm:px-12 py-24 flex flex-col items-center gap-12">
         <motion.h2
           initial="hidden"

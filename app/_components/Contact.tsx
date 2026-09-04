@@ -81,7 +81,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="w-full max-w-7xl mx-auto px-6 sm:px-12 py-24 flex flex-col items-center gap-8">
+    <section id="contact" className="w-full max-w-7xl mx-auto px-6 sm:px-12 py-24 flex flex-col items-center gap-8 scroll-mt-28">
       <motion.h2
         initial="hidden"
         whileInView="visible"
