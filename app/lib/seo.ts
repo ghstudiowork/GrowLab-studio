@@ -1,5 +1,5 @@
-// TODO: 실제 프로덕션 도메인이 확정되면 SITE_URL을 교체하세요.
-export const SITE_URL = "https://growlab-studio.com";
+// 공식 프로덕션 도메인
+export const SITE_URL = "https://growlabstudio.kr";
 export const SITE_NAME = "GrowLab Studio";
 export const SITE_TITLE = "GrowLab Studio | 브랜드 성장을 위한 홈페이지 제작 스튜디오";
 export const SITE_DESCRIPTION =
