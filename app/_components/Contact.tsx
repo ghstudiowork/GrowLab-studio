@@ -151,7 +151,7 @@ export default function Contact() {
               간단한 문의도 편하게 남겨주세요.
             </p>
             <a
-              href="http://pf.kakao.com/_ZxixbxnX/chat"
+              href="https://open.kakao.com/o/s9Jsm2Li"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex w-full items-center justify-center rounded-xl border border-transparent bg-black px-8 py-4 text-lg font-semibold text-white transition-colors duration-300 hover:border-emerald-600 dark:bg-white dark:text-black dark:hover:border-emerald-400"
