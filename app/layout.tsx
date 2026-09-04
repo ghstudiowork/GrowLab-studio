@@ -58,6 +58,9 @@ export const metadata: Metadata = {
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
   },
+  other: {
+    "naver-site-verification": "6e4ef8b2ac9c64a43c442e0341612f9b98dd250c",
+  },
 };
 
 export const viewport: Viewport = {
