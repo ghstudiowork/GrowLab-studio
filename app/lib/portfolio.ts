@@ -43,16 +43,6 @@ export const portfolioProjects: PortfolioProject[] = [
     thumbnailAlt: "NOIRFRAME 웹사이트 스크린샷",
   },
   {
-    slug: "morrow-roasters",
-    title: "MORROW ROASTERS",
-    category: "Cafe Website",
-    description: "프리미엄 스페셜티 카페 브랜드를 위한 반응형 웹사이트",
-    year: "2026",
-    href: "https://growlab-morrow-roasters.vercel.app/",
-    thumbnail: "/images/portfolio/morrow-thumbnail.png",
-    thumbnailAlt: "MORROW ROASTERS 웹사이트 스크린샷",
-  },
-  {
     slug: "archi-mono",
     title: "ARCHI / MONO",
     category: "건축 · 인테리어",
