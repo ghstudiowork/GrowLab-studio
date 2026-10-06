@@ -167,11 +167,15 @@ export default function Pricing() {
           variants={fadeInUp}
           className="flex flex-col items-center gap-2 text-center"
         >
-          <p className="max-w-xl text-base text-zinc-500 dark:text-zinc-500">
-            프로젝트 규모와 기능에 따라 최종 견적 및 제작 기간이 달라질 수 있습니다.
+          <p className="max-w-xl text-base text-zinc-500 dark:text-zinc-500 max-sm:break-keep max-sm:text-[length:clamp(14px,calc((100vw_-_48px)/21),16px)]">
+            프로젝트 규모와 기능에 따라{" "}
+            <br className="sm:hidden" />
+            최종 견적 및 제작 기간이 달라질 수 있습니다.
           </p>
-          <p className="max-w-xl text-base text-zinc-500 dark:text-zinc-500">
-            무료 A/S 이후 신규 기능·페이지 추가는 별도 견적이 적용됩니다.
+          <p className="max-w-xl text-base text-zinc-500 dark:text-zinc-500 max-sm:break-keep max-sm:text-[length:clamp(14px,calc((100vw_-_48px)/21),16px)]">
+            무료 A/S 이후 신규 기능·페이지 추가는{" "}
+            <br className="sm:hidden" />
+            별도 견적이 적용됩니다.
           </p>
         </motion.div>
       </div>

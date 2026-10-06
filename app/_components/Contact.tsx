@@ -87,18 +87,24 @@ export default function Contact() {
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeInUp}
-        className="text-[31px] sm:text-[41px] font-bold text-black dark:text-zinc-50 text-center"
+        className="text-[31px] sm:text-[41px] font-bold text-black dark:text-zinc-50 text-center max-sm:break-keep"
       >
-        어떤 홈페이지가 필요한지 아직 명확하지 않아도 괜찮습니다.
+        어떤 홈페이지가 필요한지{" "}
+        <br className="sm:hidden" />
+        아직 명확하지 않아도{" "}
+        <br className="sm:hidden" />
+        <span className="max-sm:whitespace-nowrap">괜찮습니다.</span>
       </motion.h2>
       <motion.p
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeInUp}
-        className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-xl md:max-w-none md:whitespace-nowrap leading-relaxed text-pretty text-center"
+        className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 max-w-xl md:max-w-none md:whitespace-nowrap leading-relaxed text-pretty text-center max-sm:break-keep max-sm:text-[length:clamp(13px,calc((100vw_-_48px)/23.6),16px)]"
       >
-        사업의 현재 상황과 목표를 알려주시면 필요한 구성과 제작 방향부터 함께 정리해드립니다.
+        사업의 현재 상황과 목표를 알려주시면{" "}
+        <br className="sm:hidden" />
+        필요한 구성과 제작 방향부터 함께 정리해드립니다.
       </motion.p>
 
       <motion.div

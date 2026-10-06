@@ -12,20 +12,28 @@ export default function WhyChooseUs() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeInUp}
-          className="text-[31px] sm:text-[41px] font-bold text-black dark:text-zinc-50 text-center"
+          className="text-[length:clamp(22px,calc((100vw_-_48px)/13.2),31px)] sm:text-[41px] font-bold text-black dark:text-zinc-50 text-center max-sm:break-keep"
         >
-          브랜드의 가치를 담아, 고객이 신뢰하는 홈페이지를 만듭니다.
+          브랜드의 가치를 담아,{" "}
+          <br className="sm:hidden" />
+          고객이 신뢰하는 홈페이지를{" "}
+          <br className="sm:hidden" />
+          만듭니다.
         </motion.h2>
         <motion.p
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeInUp}
-          className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 text-center max-w-2xl"
+          className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 text-center max-w-2xl max-sm:break-keep"
         >
-          홈페이지의 목적은 단순히 정보를 보여주는 것이 아닙니다.
+          홈페이지의 목적은 단순히 정보를{" "}
+          <br className="sm:hidden" />
+          보여주는 것이 아닙니다.
           <br />
-          방문자가 브랜드를 신뢰하고 상담과 문의까지 자연스럽게 이어질 수 있도록
+          방문자가 브랜드를 신뢰하고 상담과 문의까지{" "}
+          <br className="sm:hidden" />
+          자연스럽게 이어질 수 있도록
           <br />
           구조와 메시지를 함께 설계합니다.
         </motion.p>

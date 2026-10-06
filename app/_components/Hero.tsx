@@ -8,15 +8,19 @@ export default function Hero() {
           <p className="text-sm tracking-wide text-zinc-600 dark:text-zinc-400">
             GROWLAB STUDIO
           </p>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-black dark:text-zinc-50">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-black dark:text-zinc-50 max-sm:break-keep">
             홈페이지 하나가
             <br />
-            비즈니스를 성장시킵니다.
+            비즈니스를{" "}
+            <br className="sm:hidden" />
+            성장시킵니다.
           </h1>
-          <p className="text-xl leading-relaxed max-w-xl text-zinc-600 dark:text-zinc-400">
+          <p className="text-xl leading-relaxed max-w-xl text-zinc-600 dark:text-zinc-400 max-sm:break-keep">
             브랜드의 첫인상을 바꾸고,
             <br />
-            고객의 신뢰를 만드는 홈페이지를 제작합니다.
+            고객의 신뢰를 만드는 홈페이지를{" "}
+            <br className="sm:hidden" />
+            제작합니다.
           </p>
           <div className="flex gap-4">
             <a href="#contact" className="px-8 py-4 text-lg rounded-xl bg-black text-white dark:bg-white dark:text-black">
