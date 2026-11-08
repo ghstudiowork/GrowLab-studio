@@ -12,6 +12,16 @@ export type PortfolioProject = {
 // 새 프로젝트는 이 배열에 추가하면 메인 홈(캐러셀)과 /portfolio에 자동 반영됩니다.
 export const portfolioProjects: PortfolioProject[] = [
   {
+    slug: "growlab-checkout",
+    title: "GROWLAB CHECKOUT",
+    category: "Interactive Web / UI·UX",
+    description: "하나의 주문을 PAPER, BOLD, TERMINAL, FLOW 네 가지 디자인 언어로 표현한 인터랙티브 체크아웃",
+    year: "2026",
+    href: "https://growlab-checkout-mf3t.vercel.app",
+    thumbnail: "/images/portfolio/growlab-checkout-thumbnail.png",
+    thumbnailAlt: "GROWLAB CHECKOUT BOLD 디자인 결제 화면 스크린샷",
+  },
+  {
     slug: "forme",
     title: "FORME",
     category: "FURNITURE / LIVING",
