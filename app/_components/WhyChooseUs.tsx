@@ -19,11 +19,10 @@ const rise: Variants = {
 };
 
 /**
- * ⚠️ 실적 지표 — 공개 전 GrowLab Studio의 실제 기록과 일치하는지 확인이 필요합니다.
- * 확인 전(false)에는 로컬 개발 서버(npm run dev)에서만 표시되고, 운영 빌드(next build)에서는 렌더링되지 않습니다.
- * 실제 기록으로 검증한 뒤 true로 변경하세요.
+ * 실적 지표 공개 여부 — 운영자 확인 후 공개(true).
+ * false로 바꾸면 운영 빌드(next build)에서는 숨겨지고 로컬 개발 서버에서만 표시됩니다.
  */
-const STATS_VERIFIED = false;
+const STATS_VERIFIED = true;
 const SHOW_STATS = STATS_VERIFIED || process.env.NODE_ENV !== "production";
 
 type Stat = {
