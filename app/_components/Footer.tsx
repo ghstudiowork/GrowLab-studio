@@ -1,3 +1,12 @@
+import Link from "next/link";
+
+/** 어느 페이지에서든 같은 경로로 이동 (Contact는 메인 문의 섹션) */
+const FOOTER_LINKS = [
+  { href: "/portfolio", label: "Portfolio" },
+  { href: "/support", label: "Support" },
+  { href: "/#contact", label: "Contact" },
+];
+
 export default function Footer() {
   return (
     <footer className="w-full border-t border-zinc-200 dark:border-zinc-800">
@@ -12,9 +21,13 @@ export default function Footer() {
         </div>
         <div>
           <ul className="flex flex-col gap-2 text-sm text-zinc-600 dark:text-zinc-400">
-            <li>Services</li>
-            <li>Portfolio</li>
-            <li>Contact</li>
+            {FOOTER_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="transition-colors duration-300 hover:text-black dark:hover:text-zinc-50">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

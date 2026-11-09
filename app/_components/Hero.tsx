@@ -22,11 +22,12 @@ export default function Hero() {
             <br className="sm:hidden" />
             제작합니다.
           </p>
-          <div className="flex gap-4">
-            <a href="#contact" className="px-8 py-4 text-lg rounded-xl bg-black text-white dark:bg-white dark:text-black">
+          {/* 1023px 이하: 버튼을 세로로 쌓아 문구가 두 줄로 깨지지 않게 함. 1024px 이상은 기존 가로 배치 */}
+          <div className="flex w-full flex-col gap-3 lg:w-auto lg:flex-row lg:gap-4">
+            <a href="#contact" className="px-8 py-4 text-lg rounded-xl bg-black text-white dark:bg-white dark:text-black whitespace-nowrap text-center">
               무료 상담하기
             </a>
-            <a href="#portfolio" className="px-8 py-4 text-lg rounded-xl border border-black dark:border-white">
+            <a href="#portfolio" className="px-8 py-4 text-lg rounded-xl border border-black dark:border-white whitespace-nowrap text-center">
               포트폴리오 보기
             </a>
           </div>

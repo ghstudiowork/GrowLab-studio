@@ -1,74 +1,213 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { fadeInUp } from "./motion-variants";
+import { useEffect, useRef, type ReactNode, type Ref } from "react";
+import {
+  animate,
+  motion,
+  useInView,
+  useScroll,
+  useTransform,
+  type MotionValue,
+  type Variants,
+} from "framer-motion";
 
-export default function WhyChooseUs() {
+const ease = [0.22, 1, 0.36, 1] as const;
+
+const rise: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease } },
+};
+
+/**
+ * ⚠️ 실적 지표 — 공개 전 GrowLab Studio의 실제 기록과 일치하는지 확인이 필요합니다.
+ * 확인 전(false)에는 로컬 개발 서버(npm run dev)에서만 표시되고, 운영 빌드(next build)에서는 렌더링되지 않습니다.
+ * 실제 기록으로 검증한 뒤 true로 변경하세요.
+ */
+const STATS_VERIFIED = false;
+const SHOW_STATS = STATS_VERIFIED || process.env.NODE_ENV !== "production";
+
+type Stat = {
+  value: number;
+  decimals: number;
+  suffix: string;
+  title: string;
+  description: string;
+};
+
+const STATS: Stat[] = [
+  { value: 100, decimals: 0, suffix: "%", title: "프로젝트 완료율", description: "모든 프로젝트를 완벽하게 마무리합니다" },
+  { value: 100, decimals: 0, suffix: "%", title: "일정 준수율", description: "철저한 일정 관리로 약속을 지킵니다" },
+  { value: 5, decimals: 1, suffix: "점", title: "고객 만족도", description: "만족한 고객님들의 추천으로 성장합니다" },
+];
+
+/** 카운트업 시작 간격(초)·지속 시간(초)·easing(천천히 출발 → 부드럽게 감속) */
+const COUNT_STAGGER = 0.15;
+const COUNT_DURATION = 1.8;
+const COUNT_EASE = [0.45, 0, 0.15, 1] as const;
+
+/** 스크롤 진행도에 맞춰 한 구절씩 밝아지는 텍스트 조각 */
+function Phrase({
+  progress,
+  index,
+  total,
+  className = "",
+  children,
+}: {
+  progress: MotionValue<number>;
+  index: number;
+  total: number;
+  className?: string;
+  children: ReactNode;
+}) {
+  const start = index / total;
+  const end = (index + 1) / total;
+  const opacity = useTransform(progress, [start, end], [0.16, 1]);
+  const y = useTransform(progress, [start, end], [14, 0]);
+
   return (
-    <section className="w-full bg-white dark:bg-zinc-950">
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 py-24 flex flex-col items-center gap-12">
-        <motion.h2
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-          className="text-[length:clamp(22px,calc((100vw_-_48px)/13.2),31px)] sm:text-[41px] font-bold text-black dark:text-zinc-50 text-center max-sm:break-keep"
+    <motion.span
+      style={{ opacity, y }}
+      // prefers-reduced-motion은 CSS로 덮어씁니다. (SSR 값과 클라이언트 값이 달라 생기는 하이드레이션 불일치 방지)
+      className={`will-change-[opacity,transform] motion-reduce:translate-none! motion-reduce:transform-none! motion-reduce:opacity-100! ${className}`}
+    >
+      {children}
+    </motion.span>
+  );
+}
+
+/**
+ * 0 → value 카운트업.
+ * - 서버/초기 HTML은 최종 값을 그대로 렌더링하고(JS 미실행·SEO 대비), 마운트 후 0으로 되돌린 뒤 화면 진입 시 1회 재생합니다.
+ * - 숫자는 React 상태가 아닌 textContent로 갱신해 매 프레임 리렌더를 만들지 않습니다.
+ * - 재생이 끝나면 최종 값을 정확히 다시 기록합니다.
+ * - prefers-reduced-motion이면 최종 값을 그대로 둡니다.
+ */
+function CountUp({ stat, inView, index }: { stat: Stat; inView: boolean; index: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const reduceRef = useRef(false);
+  const { value, decimals } = stat;
+  const finalText = value.toFixed(decimals);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    reduceRef.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reduceRef.current) el.textContent = (0).toFixed(decimals);
+  }, [decimals]);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !inView || reduceRef.current) return;
+    // 데스크톱 3열에서는 세 숫자가 함께 보이므로 순차 지연을 두고,
+    // 모바일 세로 배치에서는 각 항목이 화면에 들어올 때 바로 시작합니다.
+    const delay = window.matchMedia("(min-width: 768px)").matches ? index * COUNT_STAGGER : 0;
+    const controls = animate(0, value, {
+      duration: COUNT_DURATION,
+      delay,
+      ease: COUNT_EASE,
+      onUpdate: (latest) => {
+        el.textContent = latest.toFixed(decimals);
+      },
+      onComplete: () => {
+        el.textContent = finalText;
+      },
+    });
+    return () => controls.stop();
+  }, [inView, value, decimals, finalText, index]);
+
+  return (
+    // 3자리 고정 폭(100 / 5.0) + tabular-nums: 숫자가 바뀌어도 레이아웃이 흔들리지 않습니다.
+    <span ref={ref} className="inline-block w-[3ch] text-right tabular-nums">
+      {finalText}
+    </span>
+  );
+}
+
+function StatItem({ stat, index }: { stat: Stat; index: number }) {
+  const ref = useRef<HTMLLIElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.6 });
+
+  return (
+    <motion.li
+      ref={ref}
+      initial="hidden"
+      animate={inView ? "visible" : "hidden"}
+      variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } } }}
+      className="flex flex-col items-center px-4 text-center"
+    >
+      {index > 0 && (
+        <span aria-hidden="true" className="mb-10 block h-12 w-px bg-white/15 md:hidden dark:bg-black/15" />
+      )}
+      <p className="text-[44px] font-bold leading-[1.3] tracking-[-0.03em] md:text-[52px]">
+        <CountUp stat={stat} inView={inView} index={index} />
+        <span className={stat.suffix === "점" ? "ml-0.5" : ""}>{stat.suffix}</span>
+      </p>
+      <motion.p
+        variants={rise}
+        className="mt-2 text-[19px] font-bold tracking-[-0.02em] break-keep md:mt-3 md:text-[22px]"
+      >
+        {stat.title}
+      </motion.p>
+      <motion.p
+        variants={rise}
+        className="mt-2 text-sm leading-[1.6] text-zinc-400 break-keep md:text-[15px] dark:text-zinc-600"
+      >
+        {stat.description}
+      </motion.p>
+    </motion.li>
+  );
+}
+
+export default function WhyChooseUs({ ref }: { ref?: Ref<HTMLElement> }) {
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: headingRef,
+    offset: ["start 0.82", "end 0.42"],
+  });
+
+  // 첫 문장은 한 줄, 이어지는 구절은 화면 너비에 맞춰 자연스럽게 줄바꿈됩니다.
+  const phrases: { content: ReactNode; className: string }[] = [
+    { content: "브랜드에 집중하세요.", className: "block" },
+    { content: "홈페이지는", className: "inline-block" },
+    { content: "GrowLab Studio가", className: "inline-block" },
+    {
+      content: (
+        <>
+          고민하겠습니다<span className="text-emerald-400 dark:text-emerald-600">.</span>
+        </>
+      ),
+      className: "inline-block",
+    },
+  ];
+
+  return (
+    <section
+      id="approach"
+      ref={ref}
+      className="relative z-10 w-full scroll-mt-[var(--gl-nav-h)] rounded-t-[28px] bg-zinc-950 text-zinc-50 md:rounded-t-[48px] dark:bg-zinc-100 dark:text-black"
+    >
+      <div className="mx-auto max-w-7xl px-5 pb-28 pt-24 sm:px-12 md:pb-36 md:pt-36">
+        <h2
+          ref={headingRef}
+          className="mx-auto max-w-3xl text-center text-[26px] font-bold leading-[1.45] tracking-[-0.03em] break-keep md:text-[30px] lg:text-[34px]"
         >
-          브랜드의 가치를 담아,{" "}
-          <br className="sm:hidden" />
-          고객이 신뢰하는 홈페이지를{" "}
-          <br className="sm:hidden" />
-          만듭니다.
-        </motion.h2>
-        <motion.p
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-          className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 text-center max-w-2xl max-sm:break-keep"
-        >
-          홈페이지의 목적은 단순히 정보를{" "}
-          <br className="sm:hidden" />
-          보여주는 것이 아닙니다.
-          <br />
-          방문자가 브랜드를 신뢰하고 상담과 문의까지{" "}
-          <br className="sm:hidden" />
-          자연스럽게 이어질 수 있도록
-          <br />
-          구조와 메시지를 함께 설계합니다.
-        </motion.p>
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-          className="grid sm:grid-cols-3 gap-8 w-full"
-        >
-          <div className="bg-white dark:bg-zinc-900 p-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm flex flex-col gap-2">
-            <p className="text-lg sm:text-xl font-semibold text-black dark:text-zinc-50">
-              비즈니스 목적부터 시작하는 기획
-            </p>
-            <p className="text-base text-zinc-600 dark:text-zinc-400">
-              업종과 고객, 홈페이지의 목적을 먼저 파악한 뒤 필요한 페이지와 사용자 흐름을 설계합니다.
-            </p>
-          </div>
-          <div className="bg-white dark:bg-zinc-900 p-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm flex flex-col gap-2">
-            <p className="text-lg sm:text-xl font-semibold text-black dark:text-zinc-50">
-              모든 화면에서 편리한 반응형 제작
-            </p>
-            <p className="text-base text-zinc-600 dark:text-zinc-400">
-              PC와 모바일 어디서든 브랜드의 인상과 사용성이 자연스럽게 유지되도록 제작합니다.
-            </p>
-          </div>
-          <div className="bg-white dark:bg-zinc-900 p-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm flex flex-col gap-2">
-            <p className="text-lg sm:text-xl font-semibold text-black dark:text-zinc-50">
-              기획부터 오픈까지 일관된 진행
-            </p>
-            <p className="text-base text-zinc-600 dark:text-zinc-400">
-              기획, 디자인, 개발, 기본 SEO 설정까지 한 흐름으로 진행해 소통 과정의 혼선을 줄입니다.
-            </p>
-          </div>
-        </motion.div>
+          {phrases.map((phrase, i) => (
+            <span key={i}>
+              <Phrase progress={scrollYProgress} index={i} total={phrases.length} className={phrase.className}>
+                {phrase.content}
+              </Phrase>
+              {i > 0 && i < phrases.length - 1 ? " " : null}
+            </span>
+          ))}
+        </h2>
+
+        {SHOW_STATS && (
+          <ol className="mx-auto mt-20 max-w-5xl md:mt-24 md:grid md:grid-cols-3 md:divide-x md:divide-white/15 lg:mt-28 dark:md:divide-black/15">
+            {STATS.map((stat, i) => (
+              <StatItem key={stat.title} stat={stat} index={i} />
+            ))}
+          </ol>
+        )}
       </div>
     </section>
   );

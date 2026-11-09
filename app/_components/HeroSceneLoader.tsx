@@ -29,13 +29,12 @@ export default function HeroSceneLoader() {
   const [ready, setReady] = useState(false);
 
   return (
-    <div
-      className="absolute inset-0 transition-opacity duration-500 ease-out"
-      style={{ opacity: ready ? 1 : 0 }}
-      aria-hidden="true"
-    >
+    <div className="absolute inset-0" aria-hidden="true">
       <div className="absolute inset-0 bg-zinc-50 dark:bg-black" />
-      <div className="relative h-full w-full">
+      <div
+        className="relative h-full w-full transition-opacity duration-500 ease-out"
+        style={{ opacity: ready ? 1 : 0 }}
+      >
         {isDesktop && <HeroScene onReady={() => setReady(true)} />}
       </div>
     </div>

@@ -1,11 +1,9 @@
 import Navbar from "./_components/Navbar";
-import Hero from "./_components/Hero";
-import WhyChooseUs from "./_components/WhyChooseUs";
-import Services from "./_components/Services";
+import IntroStack from "./_components/IntroStack";
+import Benefit from "./_components/Benefit";
+import Difference from "./_components/Difference";
 import Process from "./_components/Process";
 import Portfolio from "./_components/Portfolio";
-import Pricing from "./_components/Pricing";
-import Faq from "./_components/Faq";
 import Contact from "./_components/Contact";
 import Footer from "./_components/Footer";
 import { SITE_NAME, SITE_URL } from "./lib/seo";
@@ -32,14 +30,12 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Navbar />
-      <Hero />
-      <WhyChooseUs />
-      <Services />
+      <Navbar variant="home" />
+      <IntroStack />
+      <Benefit />
+      <Difference />
       <Process />
       <Portfolio />
-      <Pricing />
-      <Faq />
       <Contact />
       <Footer />
     </div>

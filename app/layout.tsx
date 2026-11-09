@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "./lib/seo";
+import FloatingActions from "./_components/FloatingActions";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -83,7 +84,10 @@ export default function RootLayout({
       lang="ko"
       className={`${geistSans.variable} h-full antialiased scroll-smooth`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <FloatingActions />
+      </body>
     </html>
   );
 }

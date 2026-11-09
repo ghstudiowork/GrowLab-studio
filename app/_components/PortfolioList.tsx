@@ -30,7 +30,7 @@ function ProjectRow({ project, index }: { project: PortfolioProject; index: numb
             className="object-cover opacity-90 transition-opacity duration-300 group-hover:opacity-100"
           />
         </span>
-        <span className="flex flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:gap-6">
+        <span className="flex min-w-0 flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:gap-6">
           <span className="relative inline-block w-fit text-xl font-semibold text-black dark:text-zinc-50 sm:flex-1 sm:text-2xl">
             {project.title}
             <span className="absolute left-0 -bottom-0.5 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 ease-out group-hover:scale-x-100" />

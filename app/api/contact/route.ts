@@ -1,4 +1,15 @@
 import { Resend } from "resend";
+import {
+  BUDGET_OPTIONS,
+  EMAIL_REGEX,
+  FIELD_LIMITS,
+  INQUIRY_TYPE_OPTIONS,
+  LEGACY_BUDGET_LABELS,
+  PAGE_COUNT_OPTIONS,
+  TIMELINE_OPTIONS,
+  findLabel,
+  normalizeUrl,
+} from "../../lib/contact";
 
 const RECEIVER_EMAIL = "ghstudio.work@gmail.com";
 
@@ -9,22 +20,7 @@ const FROM_ADDRESS = "GrowLab Studio <onboarding@resend.dev>";
 
 const MAX_BODY_LENGTH = 10_000;
 
-const FIELD_LIMITS = {
-  name: 100,
-  phone: 30,
-  email: 200,
-  budget: 100,
-  message: 2000,
-};
-
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-const BUDGET_LABELS: Record<string, string> = {
-  landing: "20~50만 원 (랜딩페이지)",
-  business: "100만 원~ (비즈니스 홈페이지)",
-  custom: "200만 원~ (맞춤형 웹사이트)",
-  undecided: "예산 미정 / 상담 후 결정",
-};
+const EMPTY_LABEL = "미입력";
 
 const GENERIC_ERROR = "문의 전송에 실패했습니다. 잠시 후 다시 시도해주세요.";
 
@@ -39,6 +35,17 @@ function escapeHtml(value: string) {
 
 function badRequest(message: string) {
   return Response.json({ error: message }, { status: 400 });
+}
+
+function readString(body: Record<string, unknown>, key: string) {
+  const value = body[key];
+  return typeof value === "string" ? value.trim() : "";
+}
+
+/** 선택형 값: 비어 있으면 EMPTY_LABEL, 허용되지 않은 값이면 undefined(→ 400). */
+function resolveOptional(value: string, labelFor: (v: string) => string | undefined) {
+  if (!value) return EMPTY_LABEL;
+  return labelFor(value);
 }
 
 export async function POST(request: Request) {
@@ -61,14 +68,20 @@ export async function POST(request: Request) {
 
   const body = payload as Record<string, unknown>;
 
-  const name = typeof body.name === "string" ? body.name.trim() : "";
-  const phone = typeof body.phone === "string" ? body.phone.trim() : "";
-  const email = typeof body.email === "string" ? body.email.trim() : "";
-  const budgetValue = typeof body.budget === "string" ? body.budget.trim() : "";
-  const message = typeof body.message === "string" ? body.message.trim() : "";
+  const name = readString(body, "name");
+  const phone = readString(body, "phone");
+  const email = readString(body, "email");
+  const company = readString(body, "company");
+  const inquiryType = readString(body, "inquiryType");
+  const budgetValue = readString(body, "budget");
+  const pageCountValue = readString(body, "pageCount");
+  const timelineValue = readString(body, "timeline");
+  const referenceUrlRaw = readString(body, "referenceUrl");
+  const currentSiteUrlRaw = readString(body, "currentSiteUrl");
+  const message = readString(body, "message");
   const privacyAgree = body.privacyAgree === true;
 
-  if (!name || !phone || !email || !message || !privacyAgree) {
+  if (!name || !phone || !email || !inquiryType || !message || !privacyAgree) {
     return badRequest("필수 항목을 모두 입력해주세요.");
   }
 
@@ -76,7 +89,9 @@ export async function POST(request: Request) {
     name.length > FIELD_LIMITS.name ||
     phone.length > FIELD_LIMITS.phone ||
     email.length > FIELD_LIMITS.email ||
-    budgetValue.length > FIELD_LIMITS.budget ||
+    company.length > FIELD_LIMITS.company ||
+    referenceUrlRaw.length > FIELD_LIMITS.url ||
+    currentSiteUrlRaw.length > FIELD_LIMITS.url ||
     message.length > FIELD_LIMITS.message
   ) {
     return badRequest("입력값이 너무 깁니다.");
@@ -86,7 +101,24 @@ export async function POST(request: Request) {
     return badRequest("올바른 이메일 형식이 아닙니다.");
   }
 
-  const budgetLabel = BUDGET_LABELS[budgetValue] ?? "미입력";
+  const inquiryTypeLabel = findLabel(INQUIRY_TYPE_OPTIONS, inquiryType);
+  const budgetLabel = resolveOptional(
+    budgetValue,
+    (v) => findLabel(BUDGET_OPTIONS, v) ?? LEGACY_BUDGET_LABELS[v],
+  );
+  const pageCountLabel = resolveOptional(pageCountValue, (v) => findLabel(PAGE_COUNT_OPTIONS, v));
+  const timelineLabel = resolveOptional(timelineValue, (v) => findLabel(TIMELINE_OPTIONS, v));
+
+  if (!inquiryTypeLabel || !budgetLabel || !pageCountLabel || !timelineLabel) {
+    return badRequest("잘못된 요청입니다.");
+  }
+
+  const referenceUrl = normalizeUrl(referenceUrlRaw);
+  // 기존 홈페이지 주소는 리뉴얼 문의일 때만 받습니다.
+  const currentSiteUrl = inquiryType === "renewal" ? normalizeUrl(currentSiteUrlRaw) : "";
+  if (referenceUrl === null || currentSiteUrl === null) {
+    return badRequest("올바른 홈페이지 주소를 입력해주세요.");
+  }
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
@@ -94,23 +126,38 @@ export async function POST(request: Request) {
     return Response.json({ error: GENERIC_ERROR }, { status: 500 });
   }
 
-  const safeName = escapeHtml(name);
-  const safePhone = escapeHtml(phone);
-  const safeEmail = escapeHtml(email);
-  const safeBudget = escapeHtml(budgetLabel);
+  const rows: [string, string][] = [
+    ["이름", name],
+    ["연락처", phone],
+    ["이메일", email],
+    ["업체명 / 브랜드명", company || EMPTY_LABEL],
+    ["문의 유형", inquiryTypeLabel],
+    ["예산", budgetLabel],
+    ["예상 페이지 수", pageCountLabel],
+    ["희망 오픈 시기", timelineLabel],
+    ["참고 사이트 URL", referenceUrl || EMPTY_LABEL],
+  ];
+  if (inquiryType === "renewal") {
+    rows.push(["기존 홈페이지 URL", currentSiteUrl || EMPTY_LABEL]);
+  }
+
+  const htmlRows = rows
+    .map(
+      ([label, value]) =>
+        `<tr><th align="left" valign="top" style="padding: 6px 16px 6px 0; white-space: nowrap; color: #555; font-weight: 600;">${escapeHtml(label)}</th><td style="padding: 6px 0; word-break: break-all;">${escapeHtml(value)}</td></tr>`,
+    )
+    .join("");
+
   const safeMessage = escapeHtml(message).replace(/\n/g, "<br />");
 
   const html = `
     <div style="font-family: sans-serif; font-size: 14px; line-height: 1.6; color: #111;">
-      <p><strong>이름:</strong> ${safeName}</p>
-      <p><strong>연락처:</strong> ${safePhone}</p>
-      <p><strong>이메일:</strong> ${safeEmail}</p>
-      <p><strong>예산:</strong> ${safeBudget}</p>
-      <p><strong>문의 내용:</strong><br />${safeMessage}</p>
+      <table cellpadding="0" cellspacing="0" style="border-collapse: collapse;">${htmlRows}</table>
+      <p style="margin-top: 16px;"><strong>문의 내용:</strong><br />${safeMessage}</p>
     </div>
   `;
 
-  const text = `이름: ${name}\n연락처: ${phone}\n이메일: ${email}\n예산: ${budgetLabel}\n문의 내용:\n${message}`;
+  const text = `${rows.map(([label, value]) => `${label}: ${value}`).join("\n")}\n\n문의 내용:\n${message}`;
 
   try {
     const resend = new Resend(apiKey);

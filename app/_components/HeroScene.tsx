@@ -108,9 +108,9 @@ export default function HeroScene({ onReady }: { onReady?: () => void }) {
       camera={{ position: [0, 0, 6], fov: 42 }}
       frameloop="always"
       onCreated={({ gl }) => {
-        gl.setClearAlpha(0);
+        gl.setClearColor(0x000000, 0);
       }}
-      style={{ background: "transparent" }}
+      style={{ background: "transparent", backgroundColor: "transparent" }}
     >
       <SceneReady onReady={onReady ?? (() => {})} />
       <ambientLight intensity={0.7} />

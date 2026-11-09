@@ -23,3 +23,39 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ------------------------------------------------------------------
+   Home navigation + Approach — 메인페이지 전용 스타일
+   ------------------------------------------------------------------ */
+:root {
+  --gl-nav-h: 64px;
+  --gl-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gl-nav-h: 72px;
+  }
+}
+
+.gl-fade {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+  animation: gl-fade 0.7s var(--gl-ease) forwards;
+  animation-delay: var(--gl-d, 0ms);
+}
+
+@keyframes gl-fade {
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gl-fade {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
