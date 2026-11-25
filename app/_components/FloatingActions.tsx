@@ -55,7 +55,7 @@ function FloatingButtons({ onTop }: { onTop: () => void }) {
         aria-label="카카오톡 상담 (새 창에서 열림)"
         className="flex h-[45px] w-full items-center justify-center bg-[#00C896] text-[14px] font-semibold text-[#052D22] transition-colors duration-200 hover:bg-[#00B889] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#052D22]"
       >
-        카카오톡
+        카카오톡 상담
       </a>
     </div>
   );

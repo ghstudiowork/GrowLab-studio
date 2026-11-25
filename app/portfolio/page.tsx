@@ -3,13 +3,32 @@ import Navbar from "../_components/Navbar";
 import Footer from "../_components/Footer";
 import PortfolioList from "../_components/PortfolioList";
 import { portfolioProjects } from "../lib/portfolio";
+import { OG_IMAGES, SITE_NAME, TWITTER_IMAGES } from "../lib/seo";
+
+const DESCRIPTION =
+  "GrowLab Studio가 제작한 모든 프로젝트를 소개합니다. 브랜드의 목적과 고객 경험을 고려해 기획한 웹 프로젝트를 확인해보세요.";
 
 export const metadata: Metadata = {
   title: "PORTFOLIO",
-  description:
-    "GrowLab Studio가 제작한 모든 프로젝트를 소개합니다. 브랜드의 목적과 고객 경험을 고려해 기획한 웹 프로젝트를 확인해보세요.",
+  description: DESCRIPTION,
   alternates: {
     canonical: "/portfolio",
+  },
+  // openGraph/twitter를 지정하지 않으면 루트 레이아웃 값(메인 제목·URL)이 그대로 공유 미리보기에 쓰입니다.
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    siteName: SITE_NAME,
+    title: `PORTFOLIO | ${SITE_NAME}`,
+    description: DESCRIPTION,
+    url: "/portfolio",
+    images: OG_IMAGES,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `PORTFOLIO | ${SITE_NAME}`,
+    description: DESCRIPTION,
+    images: TWITTER_IMAGES,
   },
 };
 

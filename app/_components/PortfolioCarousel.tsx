@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { portfolioProjects, type PortfolioProject } from "../lib/portfolio";
+import ProjectMeta from "./ProjectMeta";
 
 const CARD_GAP_PX = 24; // Tailwind gap-6
 
@@ -36,6 +37,7 @@ function CarouselCard({ project }: { project: PortfolioProject }) {
         <p className="text-sm sm:text-base text-zinc-600 dark:text-zinc-400">
           {project.description}
         </p>
+        <ProjectMeta project={project} className="mt-1.5" />
       </div>
       <span className="inline-flex items-center gap-1.5 text-sm font-medium text-black dark:text-zinc-50">
         프로젝트 보기

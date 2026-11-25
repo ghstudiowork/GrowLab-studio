@@ -3,6 +3,7 @@
 import { useRef, useState, type SubmitEvent } from "react";
 import { motion } from "framer-motion";
 import { fadeInUp, staggerContainer } from "./motion-variants";
+import PrivacyPolicy from "./PrivacyPolicy";
 import {
   BUDGET_OPTIONS,
   EMAIL_REGEX,
@@ -388,15 +389,59 @@ export default function Contact() {
             />
           </div>
 
-          <label className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
-            <input
-              type="checkbox"
-              name="privacyAgree"
-              required
-              className="mt-0.5 h-4 w-4 accent-emerald-600 dark:accent-emerald-400"
-            />
-            <span>개인정보 수집·이용에 동의합니다. (필수)</span>
-          </label>
+          <div className="flex flex-col gap-2">
+            <label className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+              <input
+                type="checkbox"
+                name="privacyAgree"
+                required
+                aria-describedby="contact-privacy-notice"
+                className="mt-0.5 h-4 w-4 accent-emerald-600 dark:accent-emerald-400"
+              />
+              <span>개인정보 수집·이용에 동의합니다. (필수)</span>
+            </label>
+            {/* 개인정보 수집·이용 동의 안내(동의 대상) — 수집 항목은 폼·/api/contact 실제 전송 항목 기준. 보유 기간은 운영자 확인값. */}
+            <details className="group ml-6 text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
+              <summary className="w-fit cursor-pointer list-none underline underline-offset-2 hover:text-zinc-700 dark:hover:text-zinc-200 [&::-webkit-details-marker]:hidden">
+                수집·이용 동의 안내 보기
+              </summary>
+              <dl
+                id="contact-privacy-notice"
+                className="mt-2 grid gap-1.5 rounded-lg bg-zinc-50 p-3 break-keep dark:bg-zinc-800/60"
+              >
+                <div>
+                  <dt className="inline font-semibold">수집 항목: </dt>
+                  <dd className="inline">
+                    (필수) 이름, 연락처, 이메일, 문의 유형, 문의 내용 / (선택) 업체명·브랜드명, 예산 범위, 예상 페이지
+                    수, 희망 오픈 시기, 참고 사이트 URL, 기존 홈페이지 URL
+                  </dd>
+                </div>
+                <div>
+                  <dt className="inline font-semibold">수집·이용 목적: </dt>
+                  <dd className="inline">홈페이지 제작 문의 확인 및 상담·견적 안내를 위한 연락</dd>
+                </div>
+                <div>
+                  <dt className="inline font-semibold">보유·이용 기간: </dt>
+                  <dd className="inline">문의일로부터 최대 1년 (상담 목적 달성 시 불필요한 정보는 삭제)</dd>
+                </div>
+                <div>
+                  <dt className="inline font-semibold">처리 위탁·국외 이전: </dt>
+                  <dd className="inline">
+                    문의 내용은 해외 서비스(Resend, Google, Vercel)를 통해 운영자 이메일로 전달·보관됩니다. 자세한
+                    내용은 아래 개인정보 처리방침을 확인해주세요.
+                  </dd>
+                </div>
+                <div>
+                  <dt className="inline font-semibold">동의 거부 권리: </dt>
+                  <dd className="inline">
+                    개인정보 수집·이용에 동의하지 않을 수 있으며, 동의하지 않으면 문의 폼을 통한 접수가 제한됩니다.
+                  </dd>
+                </div>
+              </dl>
+            </details>
+            {/* 개인정보 처리방침(공개 안내) — 동의 안내와 구분. 푸터 링크(/#privacy-policy)로 열립니다. */}
+            <PrivacyPolicy />
+          </div>
 
           <div aria-live="polite" className="min-h-5">
             {status === "success" && (

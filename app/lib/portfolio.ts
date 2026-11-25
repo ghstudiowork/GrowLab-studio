@@ -7,7 +7,22 @@ export type PortfolioProject = {
   href: string;
   thumbnail: string;
   thumbnailAlt: string;
+  /**
+   * concept: 스튜디오 자체 기획 프로젝트 → "CONCEPT PROJECT" 표시
+   * client : 실제 의뢰를 받아 제작한 프로젝트 → "CLIENT PROJECT" 표시 (의뢰 사실이 확인된 경우에만 지정)
+   */
+  projectType: "concept" | "client";
+  /** 실제 수행한 역할. 확인된 역할만 기재하며, 빈 배열이면 표시하지 않습니다. */
+  roles: string[];
 };
+
+export const PROJECT_TYPE_LABEL: Record<PortfolioProject["projectType"], string> = {
+  concept: "CONCEPT PROJECT",
+  client: "CLIENT PROJECT",
+};
+
+/** 운영자 확인(2026-11-24): 현재 등록된 6개 프로젝트 모두 자체 기획, 기획·디자인·개발 직접 수행 */
+const FULL_ROLES = ["Planning", "Design", "Development"];
 
 // 새 프로젝트는 이 배열에 추가하면 메인 홈(캐러셀)과 /portfolio에 자동 반영됩니다.
 export const portfolioProjects: PortfolioProject[] = [
@@ -20,6 +35,8 @@ export const portfolioProjects: PortfolioProject[] = [
     href: "https://growlab-checkout-mf3t.vercel.app",
     thumbnail: "/images/portfolio/growlab-checkout-thumbnail.png",
     thumbnailAlt: "GROWLAB CHECKOUT BOLD 디자인 결제 화면 스크린샷",
+    projectType: "concept",
+    roles: FULL_ROLES,
   },
   {
     slug: "forme",
@@ -30,6 +47,8 @@ export const portfolioProjects: PortfolioProject[] = [
     href: "https://forme-furniture-one.vercel.app/",
     thumbnail: "/images/portfolio/forme-thumbnail.png",
     thumbnailAlt: "FORME 컨템포러리 가구 브랜드 웹사이트",
+    projectType: "concept",
+    roles: FULL_ROLES,
   },
   {
     slug: "slice-club",
@@ -40,6 +59,8 @@ export const portfolioProjects: PortfolioProject[] = [
     href: "https://slice-club-sedg.vercel.app/",
     thumbnail: "/images/portfolio/slice-club-thumbnail.png",
     thumbnailAlt: "SLICE CLUB 피자 브랜드 웹사이트",
+    projectType: "concept",
+    roles: FULL_ROLES,
   },
   {
     slug: "noirframe",
@@ -50,6 +71,8 @@ export const portfolioProjects: PortfolioProject[] = [
     href: "https://noirframe-tmj7.vercel.app/",
     thumbnail: "/images/portfolio/noirframe-thumbnail.png",
     thumbnailAlt: "NOIRFRAME 웹사이트 스크린샷",
+    projectType: "concept",
+    roles: FULL_ROLES,
   },
   {
     slug: "archi-mono",
@@ -60,6 +83,8 @@ export const portfolioProjects: PortfolioProject[] = [
     href: "https://archi-mono.vercel.app/",
     thumbnail: "/images/portfolio/archi-mono-thumbnail.png",
     thumbnailAlt: "ARCHI / MONO 웹사이트 스크린샷",
+    projectType: "concept",
+    roles: FULL_ROLES,
   },
   {
     slug: "lumea",
@@ -70,5 +95,7 @@ export const portfolioProjects: PortfolioProject[] = [
     href: "https://lumea-htz1.vercel.app/",
     thumbnail: "/images/portfolio/lumea-thumbnail.png",
     thumbnailAlt: "LUMÉA 웹사이트 스크린샷",
+    projectType: "concept",
+    roles: FULL_ROLES,
   },
 ];

@@ -31,7 +31,14 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 pb-12">
+      <div className="max-w-7xl mx-auto px-6 sm:px-12 pb-12 flex flex-col gap-2">
+        {/* 처리방침은 메인 문의 폼 안의 펼쳐보기 영역 — PrivacyPolicy.tsx가 #privacy-policy를 감지해 펼침 */}
+        <Link
+          href="/#privacy-policy"
+          className="w-fit text-sm font-semibold text-zinc-600 transition-colors duration-300 hover:text-black dark:text-zinc-300 dark:hover:text-zinc-50"
+        >
+          개인정보 처리방침
+        </Link>
         <p className="text-sm text-zinc-500 dark:text-zinc-400">
           © 2026 GrowLab Studio. All rights reserved.
         </p>

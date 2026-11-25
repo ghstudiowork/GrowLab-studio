@@ -95,6 +95,22 @@ const BENEFITS: { title: string; description: string; Icon: () => ReactNode }[] 
   },
 ];
 
+/** 제작 유형 — 카드 아래 간결한 3열 목록으로 표시합니다. (문의 폼의 '문의 유형'과 대응) */
+const SERVICES: { title: string; description: string }[] = [
+  {
+    title: "기업·브랜드 홈페이지",
+    description: "회사와 브랜드의 이야기를 정리해, 신뢰를 주는 공식 홈페이지를 만듭니다.",
+  },
+  {
+    title: "랜딩페이지 제작",
+    description: "하나의 제품·서비스·이벤트에 집중해, 문의로 이어지는 한 페이지를 설계합니다.",
+  },
+  {
+    title: "홈페이지 리뉴얼",
+    description: "기존 홈페이지의 구조와 디자인을 점검하고, 지금의 브랜드에 맞게 새로 정비합니다.",
+  },
+];
+
 export default function Benefit() {
   return (
     // reducedMotion="user": 동작 줄이기 설정 시 이동(transform)을 생략하고 opacity만 전환합니다.
@@ -163,6 +179,38 @@ export default function Benefit() {
               </motion.li>
             ))}
           </motion.ul>
+
+          {/* 제작 유형: 별도 대형 섹션 대신 카드 아래 한 줄 목록 */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={cardList}
+            className="mt-16 md:mt-24"
+          >
+            <motion.h3
+              variants={rise}
+              className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-400 sm:text-xs dark:text-zinc-600"
+            >
+              Services · 제작 유형
+            </motion.h3>
+            <ul className="mt-5 grid border-t border-white/10 md:mt-6 lg:grid-cols-3 lg:divide-x lg:divide-white/10 dark:border-zinc-300 dark:lg:divide-zinc-300">
+              {SERVICES.map(({ title, description }) => (
+                <motion.li
+                  key={title}
+                  variants={rise}
+                  className="border-b border-white/10 py-6 md:py-7 lg:border-b-0 lg:px-8 lg:py-8 lg:first:pl-0 lg:last:pr-0 dark:border-zinc-300"
+                >
+                  <p className="text-lg font-bold tracking-[-0.03em] break-keep text-zinc-50 md:text-xl dark:text-black">
+                    {title}
+                  </p>
+                  <p className="mt-2 text-[15px] leading-[1.7] text-zinc-400 break-keep dark:text-zinc-600">
+                    {description}
+                  </p>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
         </div>
       </section>
     </MotionConfig>

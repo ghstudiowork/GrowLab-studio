@@ -4,6 +4,7 @@ import Navbar from "../_components/Navbar";
 import Footer from "../_components/Footer";
 import Faq from "../_components/Faq";
 import { FAQ_ITEMS } from "../lib/faq";
+import { OG_IMAGES, TWITTER_IMAGES } from "../lib/seo";
 
 const DESCRIPTION =
   "GrowLab Studio 홈페이지 제작 기간, 비용, 유지보수, 도메인 및 호스팅에 관한 자주 묻는 질문을 확인하세요.";
@@ -19,10 +20,13 @@ export const metadata: Metadata = {
     title: "고객센터 | GrowLab Studio",
     description: DESCRIPTION,
     url: "/support",
+    images: OG_IMAGES,
   },
   twitter: {
+    card: "summary_large_image",
     title: "고객센터 | GrowLab Studio",
     description: DESCRIPTION,
+    images: TWITTER_IMAGES,
   },
 };
 
